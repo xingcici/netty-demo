@@ -1,5 +1,7 @@
-package com.xingci.netty.server;
+package com.xingci.netty.core.server;
 
+import com.xingci.netty.core.domain.NettyRequest;
+import com.xingci.netty.core.domain.NettyResponse;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -19,6 +21,9 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("server received: {}", msg);
 
-        ctx.writeAndFlush("ok");
+        NettyRequest request = (NettyRequest)msg;
+
+        NettyResponse response = new NettyResponse(request.getRequestId(), "Nice to meet you! I'm Netty!");
+        ctx.writeAndFlush(response);
     }
 }

@@ -1,4 +1,4 @@
-package com.xingci.netty.server;
+package com.xingci.netty.core.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -16,7 +16,7 @@ import org.springframework.util.SocketUtils;
  * @description :
  */
 @Slf4j
-public class ServiceStarter implements CommandLineRunner {
+public class ServiceStarter implements CommandLineRunner, AutoCloseable{
 
     @Autowired
     private ServerChannelInitializer serverChannelInitializer;
@@ -30,7 +30,8 @@ public class ServiceStarter implements CommandLineRunner {
             serverBootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
                     .childHandler(serverChannelInitializer).option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
-            int inetPort = SocketUtils.findAvailableTcpPort();
+            //int inetPort = SocketUtils.findAvailableTcpPort();
+            int inetPort = 26027;
             ChannelFuture bindFuture = serverBootstrap.bind(inetPort).sync();
             bindFuture.addListener(future -> {
                 if (future.isSuccess()) {
@@ -49,5 +50,11 @@ public class ServiceStarter implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         start();
+    }
+
+    @Override
+    public void close() throws Exception {
+        bossGroup.shutdownGracefully();
+        workerGroup.shutdownGracefully();
     }
 }

@@ -1,5 +1,8 @@
-package com.xingci.netty.server;
+package com.xingci.netty.core.spring;
 
+import com.xingci.netty.core.server.ServerChannelInitializer;
+import com.xingci.netty.core.server.ServerHandler;
+import com.xingci.netty.core.server.ServiceStarter;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -20,7 +23,7 @@ public class ServerConfiguration {
     }
 
     @Bean
-    public ServerHandler rpcServerHandler() {
+    public ServerHandler serverHandler() {
         return new ServerHandler();
     }
 }

@@ -1,5 +1,6 @@
 package com.xingci.netty.server;
 
+import com.xingci.netty.core.annotation.EnableServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

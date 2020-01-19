@@ -1,5 +1,6 @@
-package com.xingci.netty.server;
+package com.xingci.netty.core.annotation;
 
+import com.xingci.netty.core.spring.ServerConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
